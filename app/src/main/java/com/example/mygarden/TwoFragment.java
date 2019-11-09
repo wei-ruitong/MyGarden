@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 public class TwoFragment extends Fragment {
@@ -39,7 +40,8 @@ public class TwoFragment extends Fragment {
                 //需要进行的操作
 
                 //工作完成后进行关闭
-               swipeRefreshLayout.setRefreshing(false);
+              // swipeRefreshLayout.setRefreshing(false);
+                Toast.makeText(getContext(),"nihao",Toast.LENGTH_SHORT).show();
             }
         });
 
