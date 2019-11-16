@@ -1,20 +1,33 @@
 package com.example.mygarden;
 
+
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+
 import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 public class MainActivity extends AppCompatActivity {
     private TextView  view1, view2,view3,view4;
@@ -25,14 +38,43 @@ public class MainActivity extends AppCompatActivity {
     private FourFragment fourFragment;
     private List<Fragment> mFragmentList = new ArrayList<>();
     private FragmentAdapter mFragmentAdapter;
-
+    private DrawerLayout drawerLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-getSupportActionBar().hide();
+        Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
+       toolbar.setTitle("规模化农业种植软件");
+     //  toolbar.setLogo(R.drawable.touxiang2);
+        setSupportActionBar(toolbar);
+        drawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
+        NavigationView navigationView=(NavigationView)findViewById(R.id.nav_view);
+        ActionBar actionBar=getSupportActionBar();
+        if(actionBar!=null){
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.caidan7);
+        }
+        navigationView.setCheckedItem(R.id.shezhi);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+             // drawerLayout.closeDrawers();
+                switch (menuItem.getItemId()){
+                    case R.id.shezhi:
+                        Toast.makeText(MainActivity.this,"设置",Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.add:
+                        Intent intent=new Intent(MainActivity.this,AddEarthActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.version:
+                        Toast.makeText(MainActivity.this,"Version:1.0",Toast.LENGTH_SHORT).show();
+                        break;
+                }
+              return  true;
+            }
+        });
         initViews();
-
         mFragmentAdapter = new FragmentAdapter(this.getSupportFragmentManager(), mFragmentList);
         vp.setOffscreenPageLimit(4);//ViewPager的缓存为4帧
         vp.setAdapter(mFragmentAdapter);
@@ -59,8 +101,8 @@ getSupportActionBar().hide();
                 arg0==0的时辰默示什么都没做。*/
             }
         });
-    }
 
+    }
     /**
      * 初始化布局View
      */
@@ -111,22 +153,6 @@ getSupportActionBar().hide();
     /**
      * 点击底部Text 动态修改ViewPager的内容
      */
-
-  /*  public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.item_weixin:
-                vp.setCurrentItem(0, true);
-                break;
-            case R.id.item_tongxunlu:
-                vp.setCurrentItem(1, true);
-                break; case R.id.view3:
-                vp.setCurrentItem(2, true);
-                break; case R.id.view4:
-                vp.setCurrentItem(3, true);
-                break;
-        }
-    }
-*/
     public class FragmentAdapter extends FragmentPagerAdapter {
         List<Fragment> fragmentList = new ArrayList<Fragment>();
         public FragmentAdapter(FragmentManager fm, List<Fragment> fragmentList) {
@@ -171,7 +197,16 @@ getSupportActionBar().hide();
         }
     }
 
-
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                drawerLayout.openDrawer(GravityCompat.START);
+                break;
+                default:
+        }
+        return  true;
+    }
 }
 
 

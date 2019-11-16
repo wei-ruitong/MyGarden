@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item
+    android:id="@+id/shezhi"
+    android:icon="@drawable/setting"
+    android:title="设置"
+    />
+    <item
+        android:id="@+id/add"
+        android:icon="@drawable/add"
+        android:title="添加地块"/>
+    <item
+        android:id="@+id/version"
+        android:icon="@drawable/version"
+        android:title="版本信息"
+        />
+    <item
+        android:title="Version:1.0"
+
+        />
+    <item
+        android:title="开发者：柯彤、魏瑞通"/>
+</menu>

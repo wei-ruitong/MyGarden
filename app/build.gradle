@@ -16,7 +16,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -37,4 +37,10 @@ dependencies {
     compile files('libs/HCNetSDK.jar')
     compile files('libs/jna.jar')
     compile files('libs/PlayerSDK.jar')
+    implementation 'com.squareup.okhttp3:okhttp:4.2.2'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'de.hdodenhof:circleimageview:3.0.1'
+    implementation 'com.github.lecho:hellocharts-library:1.5.8'
+
 }

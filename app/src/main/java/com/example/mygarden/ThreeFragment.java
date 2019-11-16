@@ -16,7 +16,7 @@ import android.widget.ListView;
 
 
 public class ThreeFragment extends Fragment {
-    String []s={"地块一","地块二","地块三","地块四","地块五"};
+    String []s={"地块一","地块二","地块三","地块四","地块五","地块六"};
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_three,container,false);
         return view;
