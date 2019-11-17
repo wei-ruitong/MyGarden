@@ -1,6 +1,7 @@
 package com.example.mygarden;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -61,15 +63,53 @@ public class MainActivity extends AppCompatActivity {
              // drawerLayout.closeDrawers();
                 switch (menuItem.getItemId()){
                     case R.id.shezhi:
-                        Toast.makeText(MainActivity.this,"设置",Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(MainActivity.this,"设置",Toast.LENGTH_SHORT).show();
+                        showSingDialog();
                         break;
                     case R.id.add:
                         Intent intent=new Intent(MainActivity.this,AddEarthActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.version:
-                        Toast.makeText(MainActivity.this,"Version:1.0",Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainActivity.this,"版本信息",Toast.LENGTH_SHORT).show();
+                        AlertDialog.Builder singleChoiceDialog1= new AlertDialog.Builder(MainActivity.this);
+                        // singleChoiceDialog.setIcon(R.drawable.icon);
+                        singleChoiceDialog1.setTitle("Version:1.0");
+                        singleChoiceDialog1.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+
+                            }
+                        });
+                        singleChoiceDialog1.show();
                         break;
+                    case R.id.lianxi:
+                        Toast.makeText(MainActivity.this,"关于我们",Toast.LENGTH_SHORT).show();
+                        Intent intent1=new Intent(MainActivity.this,AboutWe.class);
+                        startActivity(intent1);
+
+
+                        break;
+                    case R.id.zhishi:
+                        //Toast.makeText(MainActivity.this,"知识库",Toast.LENGTH_SHORT).show();
+                        Intent intent2=new Intent(MainActivity.this,KnowledgeActivity.class);
+                        startActivity(intent2);
+                        break;
+                    case R.id.help:
+                       // Toast.makeText(MainActivity.this,"使用帮助",Toast.LENGTH_SHORT).show();
+                        Intent intent3=new Intent(MainActivity.this,HelpActivity.class);
+                        startActivity(intent3);
+                        break;
+                    case R.id.tuichu:
+                      //  Toast.makeText(MainActivity.this,"退出当前账号",Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.del:
+                       // Toast.makeText(MainActivity.this,"删除地块",Toast.LENGTH_SHORT).show();
+                        Intent intent4=new Intent(MainActivity.this,DeleteActivity.class);
+                        startActivity(intent4);
+                        break;
+
                 }
               return  true;
             }
@@ -206,6 +246,34 @@ public class MainActivity extends AppCompatActivity {
                 default:
         }
         return  true;
+    }
+    /**
+     * 单选Dialog
+     */
+    int choice;
+    private void showSingDialog(){
+        final String[] items = {"夜间模式","日间模式"};
+        AlertDialog.Builder singleChoiceDialog = new AlertDialog.Builder(MainActivity.this);
+       // singleChoiceDialog.setIcon(R.drawable.icon);
+        singleChoiceDialog.setTitle("模式选择");
+        //第二个参数是默认的选项
+        singleChoiceDialog.setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                choice= which;
+            }
+        });
+        singleChoiceDialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (choice!=-1){
+                    Toast.makeText(MainActivity.this,
+                            "你选择了" + items[choice],
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        singleChoiceDialog.show();
     }
 }
 

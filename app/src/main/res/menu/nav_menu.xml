@@ -1,23 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-<item
-    android:id="@+id/shezhi"
-    android:icon="@drawable/setting"
-    android:title="设置"
-    />
+    <item
+        android:id="@+id/shezhi"
+        android:icon="@drawable/setting"
+        android:title="设置"
+        />
+    <item
+        android:id="@+id/zhishi"
+        android:icon="@drawable/zhishi"
+        android:title="知识库"
+        />
+
+    <item
+        android:id="@+id/help"
+        android:icon="@drawable/helper"
+        android:title="使用帮助"
+        />
+    <item
+        android:id="@+id/lianxi"
+        android:icon="@drawable/guanyuwomen"
+        android:title="关于我们"
+        />
+
+
     <item
         android:id="@+id/add"
         android:icon="@drawable/add"
         android:title="添加地块"/>
     <item
+        android:id="@+id/del"
+        android:icon="@drawable/shanchu"
+        android:title="删除地块"/>
+    <item
         android:id="@+id/version"
         android:icon="@drawable/version"
         android:title="版本信息"
         />
-    <item
-        android:title="Version:1.0"
 
-        />
     <item
-        android:title="开发者：柯彤、魏瑞通"/>
+        android:id="@+id/tuichu"
+        android:icon="@drawable/tuichu"
+        android:title="退出当前账号"
+        />
 </menu>

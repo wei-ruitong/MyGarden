@@ -1,5 +1,6 @@
 package com.example.mygarden;
 
+import android.content.DialogInterface;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,9 +12,11 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.hikvision.netsdk.ExceptionCallBack;
@@ -83,46 +86,8 @@ public class FourFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                m_oIPAddr = "192.168.1.65";
-                m_oPort = "8001";
-                try {
-                    if (m_iLogID < 0) {
-                        // login on the device
-                        m_iLogID = loginDevice();
-                        if (m_iLogID < 0) {
-                            Log.e(TAG, "This device logins failed!");
-                            return;
-                        } else {
-                            System.out.println("m_iLogID=" + m_iLogID);
-                        }
-                        // get instance of exception callback and set
-                        ExceptionCallBack oexceptionCbf = getExceptiongCbf();
-                        if (oexceptionCbf == null) {
-                            Log.e(TAG, "ExceptionCallBack object is failed!");
-                            return;
-                        }
+                showSingDialog();
 
-                        if (!HCNetSDK.getInstance().NET_DVR_SetExceptionCallBack(
-                                oexceptionCbf)) {
-                            Log.e(TAG, "NET_DVR_SetExceptionCallBack is failed!");
-                            return;
-                        }
-
-                        m_oLoginBtn.setText("已连接");
-                        Log.i(TAG,
-                                "Login sucess ****************************1***************************");
-                    } else {
-                        // whether we have logout
-                        if (!HCNetSDK.getInstance().NET_DVR_Logout_V30(m_iLogID)) {
-                            Log.e(TAG, " NET_DVR_Logout is failed!");
-                            return;
-                        }
-                        m_oLoginBtn.setText("摄像机1");
-                        m_iLogID = -1;
-                    }
-                } catch (Exception err) {
-                    Log.e(TAG, "error: " + err.toString());
-                }
             }
         });
 
@@ -493,6 +458,76 @@ public class FourFragment extends Fragment {
             }
         }
 
+    }
+    int choice;
+    private void showSingDialog(){
+        final String[] items = {"西南监控","西北监控","东北监控","东南监控"};
+        AlertDialog.Builder singleChoiceDialog = new AlertDialog.Builder(getContext());
+        singleChoiceDialog.setIcon(R.drawable.jiankong2);
+        singleChoiceDialog.setTitle("监控选择");
+        //第二个参数是默认的选项
+        singleChoiceDialog.setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                choice= which;
+            }
+        });
+        singleChoiceDialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (choice!=-1){
+                   if(items[choice].equals("西南监控")){
+                       m_oIPAddr = "192.168.1.65";
+                       m_oPort = "8001";
+                       try {
+                           if (m_iLogID < 0) {
+                               // login on the device
+                               m_iLogID = loginDevice();
+                               if (m_iLogID < 0) {
+                                   Log.e(TAG, "This device logins failed!");
+                                   return;
+                               } else {
+                                   System.out.println("m_iLogID=" + m_iLogID);
+                               }
+                               // get instance of exception callback and set
+                               ExceptionCallBack oexceptionCbf = getExceptiongCbf();
+                               if (oexceptionCbf == null) {
+                                   Log.e(TAG, "ExceptionCallBack object is failed!");
+                                   return;
+                               }
+
+                               if (!HCNetSDK.getInstance().NET_DVR_SetExceptionCallBack(
+                                       oexceptionCbf)) {
+                                   Log.e(TAG, "NET_DVR_SetExceptionCallBack is failed!");
+                                   return;
+                               }
+
+                               m_oLoginBtn.setText("已连接");
+                               Log.i(TAG,
+                                       "Login sucess ****************************1***************************");
+                           } else {
+                               // whether we have logout
+                               if (!HCNetSDK.getInstance().NET_DVR_Logout_V30(m_iLogID)) {
+                                   Log.e(TAG, " NET_DVR_Logout is failed!");
+                                   return;
+                               }
+                               m_oLoginBtn.setText("摄像机1");
+                               m_iLogID = -1;
+                           }
+                       } catch (Exception err) {
+                           Log.e(TAG, "error: " + err.toString());
+                       }
+                   }
+                   else if(items[choice].equals("西北监控")){}
+                   else if(items[choice].equals("东南南监控")){}
+                   else if(items[choice].equals("东北监控")){}
+                   Toast.makeText(getContext(),
+                            "你选择了" + items[choice],
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        singleChoiceDialog.show();
     }
 
 }
