@@ -199,11 +199,14 @@ init();
                 // Toast.makeText(getActivity(),n.getCloud(),Toast.LENGTH_SHORT).show();
                 // Log.i("123",n.getCloud());
                 //tianqi.setText(n.getCond_txt());
-
-                tianqi.setText(n.getCond_txt());
+                if(!(n.getCond_txt().endsWith("?"))) {
+                    tianqi.setText(n.getCond_txt());
+                }
                 wendu.setText("温度 "+n.getTmp()+"℃");
                 tiganwendu.setText("体感温度 "+n.getFl()+"℃");
-                fengxiang.setText("风向 "+n.getWind_dir());
+                if(!(n.getWind_dir().endsWith("?"))) {
+                    fengxiang.setText("风向 " + n.getWind_dir());
+                }
                 fengli.setText("风力 "+n.getWind_sc()+"级");
                 fengsu.setText("风速 "+n.getWind_spd()+"KM/H");
                 xiangduishidu.setText("相对湿度 "+n.getHum()+"%");
@@ -231,8 +234,10 @@ init();
                     so2.setText("So2 "+a.getSo2());
                     no2.setText("No2 "+a.getNo2());
                     co.setText("CO " +a.getCo());
-                    o3.setText("O3"+a.getO3());
-                    b.setText(a.getAqi()+" "+a.getQlty());
+                    o3.setText("O3 "+a.getO3());
+                    if(!(a.getQlty().endsWith("?"))) {
+                        b.setText(a.getAqi() + " " + a.getQlty());
+                    }
 
             }
         });
@@ -251,8 +256,10 @@ List<ForecastBase> f=forecast.getDaily_forecast();
 
 data.setText(f.get(1).getDate());
 data2.setText(f.get(2).getDate());
-qing.setText(f.get(1).getCond_txt_d());
-qing2.setText(f.get(2).getCond_txt_d());
+if(!(f.get(1).getCond_txt_d()).endsWith("?")&&!(f.get(2).getCond_txt_d()).endsWith("?")) {
+    qing.setText(f.get(1).getCond_txt_d());
+    qing2.setText(f.get(2).getCond_txt_d());
+}
 htmp.setText(f.get(1).getTmp_max()+"℃");
 htmp2.setText(f.get(2).getTmp_max()+"℃");
 ltmp.setText(f.get(1).getTmp_min()+"℃");
