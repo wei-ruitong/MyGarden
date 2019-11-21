@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import org.litepal.LitePal;
 
 public class AddEarthActivity extends AppCompatActivity {
 private Button button,button1;

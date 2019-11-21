@@ -3,95 +3,29 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="horizontal">
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="今日详情"
-        android:textSize="20sp"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="20dp"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-    <LinearLayout
+        android:id="@+id/data"
+        android:text="2019-11-18"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/qingyin"
+        android:text="晴"
+        android:layout_width="0dp"
         android:layout_weight="1"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="最高温度 21°"
-            android:gravity="center"
-            />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="20dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="降水量 0.5mm"
-            android:gravity="center"
-           />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="20dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="气压 1001HPA"
-            android:gravity="center"
-            />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="20dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="东北方 2级"
-            android:gravity="center"
-            />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="20dp"/>
-
-    </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="最低温度 21°"
-                android:gravity="center"
-               />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="20dp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="湿度 20%"
-                android:gravity="center"
-               />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="20dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="能见度 3KM"
-                android:gravity="center"
-               />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="20dp"/>
-        </LinearLayout>
-    </LinearLayout>
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/tmp"
+        android:text="10°/0°"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/fengji"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:text="1-2级"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

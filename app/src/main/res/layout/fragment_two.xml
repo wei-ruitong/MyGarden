@@ -6,6 +6,7 @@
     android:orientation="vertical"
     tools:context=".TwoFragment"
      >
+
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
     android:id="@+id/shuaxin"
     android:layout_width="match_parent"
@@ -21,6 +22,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
+    <WebView
+        android:id="@+id/web"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -380,10 +385,16 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="#BEBFC3"/>
+    <ListView
+        android:id="@+id/feature"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <lecho.lib.hellocharts.view.LineChartView
         android:id="@+id/zhexiantu"
         android:layout_width="match_parent"
         android:layout_height="300dp"  />
+
+
 </LinearLayout>
 
   </ScrollView>

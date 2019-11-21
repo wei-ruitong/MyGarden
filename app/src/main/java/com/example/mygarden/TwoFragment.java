@@ -10,14 +10,20 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mygarden.Weatherpackage.Future_weather;
+import com.example.mygarden.Weatherpackage.WeatherAdapter;
 import com.heweather.plugin.view.HeContent;
 import com.heweather.plugin.view.HeWeatherConfig;
 
@@ -58,9 +64,14 @@ public class TwoFragment extends Fragment {
     int[] weather = {9,7,6,7,8,6,8};
     private List<PointValue> mPointValues = new ArrayList<PointValue>();
     private List<AxisValue> mAxisValues = new ArrayList<AxisValue>();
-
+    private WebView webView;
+    private  List<Future_weather> futurelist=new ArrayList<>();
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_two, container, false);
+        webView=(WebView)view.findViewById(R.id.web);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.setWebViewClient(new WebViewClient());
+        webView.loadUrl("https://widget-page.heweather.net/h5/index.html?bg=1&md=0123456&lc=CN101180301&key=7148c3b84d0b40bdbb4a348c2d1f6bb4");
         data=(TextView) view.findViewById(R.id.data1);
         data2=(TextView) view.findViewById(R.id.data2);
         htmp=(TextView) view.findViewById(R.id.htmp);
@@ -93,7 +104,6 @@ public class TwoFragment extends Fragment {
         co =(TextView)view.findViewById(R.id.co);
         o3 =(TextView)view.findViewById(R.id.o3);
        b=(Button)view.findViewById(R.id.aqi);
-
 
         getAxisLables();//获取x轴的标注
         getAxisPoints();//获取坐标点
@@ -129,7 +139,10 @@ public class TwoFragment extends Fragment {
                swipeRefreshLayout.setRefreshing(false);
            }
        });
-init();
+            init();
+        WeatherAdapter adapter=new WeatherAdapter(getContext(),R.layout.item2,futurelist);
+        ListView listView=(ListView)view.findViewById(R.id.feature);
+        listView.setAdapter(adapter);
         //左侧大布局右侧双布局控件
 
 
@@ -184,6 +197,7 @@ init();
 
         return view;
     }
+    //重载onKeyDown的函数，使其在页面内回退,而不是直接退出程序
 
     private void init(){
 //获取实况天气
@@ -254,18 +268,36 @@ init();
             public void onSuccess(Forecast forecast) {
 List<ForecastBase> f=forecast.getDaily_forecast();
 
-data.setText(f.get(1).getDate());
-data2.setText(f.get(2).getDate());
-if(!(f.get(1).getCond_txt_d()).endsWith("?")&&!(f.get(2).getCond_txt_d()).endsWith("?")) {
+         data.setText(f.get(1).getDate());
+         data2.setText(f.get(2).getDate());
+         if(!(f.get(1).getCond_txt_d()).endsWith("?")&&!(f.get(2).getCond_txt_d()).endsWith("?")) {
     qing.setText(f.get(1).getCond_txt_d());
     qing2.setText(f.get(2).getCond_txt_d());
 }
-htmp.setText(f.get(1).getTmp_max()+"℃");
-htmp2.setText(f.get(2).getTmp_max()+"℃");
-ltmp.setText(f.get(1).getTmp_min()+"℃");
-ltmp2.setText(f.get(2).getTmp_min()+"℃");
-youwufeng.setText(f.get(1).getWind_sc()+"级");
-youwufeng2.setText(f.get(2).getWind_sc()+"级");
+         htmp.setText(f.get(1).getTmp_max()+"℃");
+         htmp2.setText(f.get(2).getTmp_max()+"℃");
+        ltmp.setText(f.get(1).getTmp_min()+"℃");
+        ltmp2.setText(f.get(2).getTmp_min()+"℃");
+        youwufeng.setText(f.get(1).getWind_sc()+"级");
+        youwufeng2.setText(f.get(2).getWind_sc()+"级");
+                /**
+                 *
+                 * listview添加数据
+                 *
+                 */
+        Future_weather f1=new Future_weather(f.get(0).getDate(),f.get(0).getCond_txt_d(),
+                f.get(0).getTmp_max()+f.get(0).getTmp_min(),f.get(0).getWind_sc());
+        futurelist.add(f1);
+
+
+
+
+
+
+
+
+
+
 
             }
         });
@@ -314,8 +346,6 @@ youwufeng2.setText(f.get(2).getWind_sc()+"级");
         lineChart.setLineChartData(data);
         lineChart.setVisibility(View.VISIBLE);
     }
-
-
     /**
      * X 轴的显示
      */
@@ -324,7 +354,6 @@ youwufeng2.setText(f.get(2).getWind_sc()+"级");
             mAxisValues.add(new AxisValue(i).setLabel(weeks[i]));
         }
     }
-
     /**
      * 图表的每个点的显示
      */
